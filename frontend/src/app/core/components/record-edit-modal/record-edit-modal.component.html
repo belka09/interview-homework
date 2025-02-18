@@ -1,0 +1,30 @@
+<div class="modal-container">
+  <h2>Edit Product</h2>
+  <form [formGroup]="editForm">
+    <div>
+      <label for="name">Name</label>
+      <input id="name" type="text" formControlName="name" />
+    </div>
+    <div>
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description"></textarea>
+    </div>
+    <div>
+      <label for="quantity">Quantity</label>
+      <input id="quantity" type="number" formControlName="quantity" />
+    </div>
+    <div>
+      <label for="unitPrice">Unit Price</label>
+      <input
+        id="unitPrice"
+        type="number"
+        formControlName="unitPrice"
+        step="0.01"
+      />
+    </div>
+    <div class="modal-buttons">
+      <button type="button" (click)="cancel()">Cancel</button>
+      <button type="button" (click)="save()">Save</button>
+    </div>
+  </form>
+</div>

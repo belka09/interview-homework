@@ -1,0 +1,26 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.tabs {
+  border-bottom: 1px solid #eee;
+
+  &--list {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  &--btn {
+    display: block;
+    padding: 10px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+
+    &:hover,
+    &.active {
+      background: #eee;
+    }
+  }
+}
