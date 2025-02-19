@@ -2,9 +2,11 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
-const routes = require("./routes");
 const cors = require("cors");
 const errorHandler = require("./middlewares/error-handler.middleware");
+
+const productRoutes = require("./routes/products.routes");
+const shipmentRoutes = require("./routes/shipments.routes");
 
 require("./db");
 
@@ -23,7 +25,8 @@ app.use(
   })
 );
 
-app.use("/products", routes);
+app.use("/products", productRoutes);
+app.use("/shipments", shipmentRoutes);
 
 app.use(errorHandler);
 

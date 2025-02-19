@@ -1,19 +1,31 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WarehouseItem } from '../../../core/models/warehouseItem';
+import { ShipmentsService } from 'src/app/core/services/shipment.service';
+import { Shipment, ShipmentStatus } from 'src/app/core/models/shipmentItem';
 
 @Component({
-  selector: 'app-list-item',
+  selector: 'app-shipment-item',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './list-item.component.html',
-  styleUrls: ['./list-item.component.scss'],
+  templateUrl: './shipment-item.component.html',
+  styleUrls: ['./shipment-item.component.scss'],
 })
-export class ListItemComponent {
-  @Input() item: WarehouseItem;
-  @Output() addToShipment: EventEmitter<void> = new EventEmitter<void>();
+export class ShipmentItemComponent {
+  @Input() item: Shipment;
   @Output() editItem: EventEmitter<void> = new EventEmitter<void>();
-  @Output() deleteItem: EventEmitter<void> = new EventEmitter<void>();
 
-  constructor() {}
+  constructor(private shipmentsService: ShipmentsService) {}
+
+  getStatusClass(status: ShipmentStatus): string {
+    switch (status) {
+      case ShipmentStatus.Created:
+        return 'created';
+      case ShipmentStatus.Shipped:
+        return 'shipped';
+      case ShipmentStatus.Delivered:
+        return 'delivered';
+      default:
+        return '';
+    }
+  }
 }

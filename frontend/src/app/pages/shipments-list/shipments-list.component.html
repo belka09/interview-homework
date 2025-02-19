@@ -1,1 +1,8 @@
-<div class="shipment-list"></div>
+<div class="items-list">
+  <app-shipment-item
+    *ngFor="let item of items$ | async"
+    [item]="item"
+    (editItem)="edit(item)"
+  >
+  </app-shipment-item>
+</div>

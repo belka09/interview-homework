@@ -1,19 +1,15 @@
 import { WarehouseItem } from './warehouseItem';
 
-export interface Shipment
-  extends Omit<FullShipment, 'shipmentDate' | 'createdAt'> {
-  shipmentDate: Date | null;
-  createdAt: Date;
-}
-
 export enum ShipmentStatus {
   Created = 'created',
   Shipped = 'shipped',
   Delivered = 'delivered',
 }
 
-export interface FullShipment {
-  createdAt: string;
+export interface Shipment {
+  id: number;
+  createdAt: Date;
   status: ShipmentStatus;
-  products: { product: WarehouseItem; quantity: number }[];
+  quantity: number;
+  product: WarehouseItem;
 }

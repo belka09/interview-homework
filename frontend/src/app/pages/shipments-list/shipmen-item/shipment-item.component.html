@@ -1,18 +1,28 @@
 <div class="list-item">
-  <div class="list-item--image">
-    <img [src]="item.imageUrl" alt="warehouse-item-image" />
-  </div>
   <div class="list-item--content">
-    <span
-      ><b>{{ item.name }}</b></span
-    >
-    <span>{{ item.description }}</span>
+    <span class="shipment-date">
+      <b>{{ item.createdAt | date : "mediumDate" }}</b>
+    </span>
+    <span class="shipment-status" [ngClass]="getStatusClass(item.status)">
+      <b>{{ item.status }}</b>
+    </span>
+    <span class="product-name">
+      {{ item.product.name }}
+    </span>
+    <span class="shipment-quantity"> Quantity: {{ item.quantity }} </span>
+    <span class="shipment-price">
+      Price:
+      {{ item.product.unitPrice | currency : "EUR" : "symbol" }}
+    </span>
+    <span class="shipment-total">
+      <b>Total:</b>
+      {{ item.quantity * item.product.unitPrice | currency : "EUR" : "symbol" }}
+    </span>
   </div>
-  <span>{{ item.quantity }}x</span>
-  <span>{{ item.unitPrice | currency : "EUR" }}</span>
-  <button class="list-item--button" (click)="editItem.emit()">Edit</button>
-  <button class="list-item--button" (click)="deleteItem.emit()">Delete</button>
-  <button class="list-item--button" (click)="addToShipment.emit()">
-    Add to Shipment
-  </button>
+
+  <div class="list-item--actions">
+    <button class="list-item--button" (click)="editItem.emit()">
+      Update status
+    </button>
+  </div>
 </div>
