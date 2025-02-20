@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Shipment, ShipmentStatus } from 'src/app/core/models/shipmentItem';
+import { Shipment } from 'src/app/core/models/shipmentItem';
 import { Observable } from 'rxjs';
 import { ShipmentsService } from 'src/app/core/services/shipment.service';
 import { ShipmentItemComponent } from './shipmen-item/shipment-item.component';

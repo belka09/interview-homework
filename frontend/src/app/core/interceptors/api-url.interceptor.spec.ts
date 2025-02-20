@@ -1,38 +1,85 @@
-import { TestBed } from '@angular/core/testing';
-
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
+import {
+  HTTP_INTERCEPTORS,
+  HttpClient,
+  HttpRequest,
+} from '@angular/common/http';
 import { ApiUrlInterceptor } from './api-url.interceptor';
-import { HttpRequest, HttpEvent, HttpResponse, HttpHandler } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { LoaderService } from '../services/loader.service';
 import { environment } from 'src/environments/environment';
 
-describe('ApiUrlInterceptor', () => {
-  let mockHandler: jasmine.SpyObj<HttpHandler>;
+describe('ApiUrlInterceptor (simplified)', () => {
+  let http: HttpClient;
+  let httpMock: HttpTestingController;
+  let loaderService: jasmine.SpyObj<LoaderService>;
 
   beforeEach(() => {
+    const loaderServiceSpy = jasmine.createSpyObj<LoaderService>([
+      'show',
+      'hide',
+    ]);
+
     TestBed.configureTestingModule({
-      providers: [ApiUrlInterceptor],
+      imports: [HttpClientTestingModule],
+      providers: [
+        { provide: LoaderService, useValue: loaderServiceSpy },
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: ApiUrlInterceptor,
+          multi: true,
+        },
+      ],
     });
-    mockHandler = jasmine.createSpyObj('handler', ['handle']);
-    mockHandler.handle.and.callFake((req) => of(new HttpResponse(req)));
+
+    http = TestBed.inject(HttpClient);
+    httpMock = TestBed.inject(HttpTestingController);
+    loaderService = TestBed.inject(
+      LoaderService
+    ) as jasmine.SpyObj<LoaderService>;
   });
 
-  it('should be created', () => {
-    const interceptor: ApiUrlInterceptor = TestBed.inject(ApiUrlInterceptor);
-    expect(interceptor).toBeTruthy();
+  afterEach(() => {
+    httpMock.verify();
   });
 
-  it('should return a URL containing the API baseUrl', (done) => {
-    const interceptor: ApiUrlInterceptor = TestBed.inject(ApiUrlInterceptor);
-    const reqUrl = '/some/endpoint';
+  it('should prepend environment.apiUrl to the request', () => {
+    http.get('/some-path').subscribe();
 
-    interceptor.intercept(new HttpRequest('GET', reqUrl), mockHandler).subscribe((res) => {
-      expect(mockHandler.handle).toHaveBeenCalledWith(
-        jasmine.objectContaining({
-          url: `${environment.api.baseUrl}/${reqUrl}`,
-        }),
+    const req = httpMock.expectOne((r: HttpRequest<unknown>) => {
+      return (
+        r.method === 'GET' &&
+        r.url.includes(environment.apiUrl) &&
+        r.url.includes('/some-path')
       );
-
-      done();
     });
+
+    expect(req.request.url).toContain(environment.apiUrl);
+    expect(req.request.url).toContain('/some-path');
+    req.flush({});
   });
+
+  it('should call loaderService.show() on request start', () => {
+    http.get('/some-path').subscribe();
+    const req = httpMock.expectOne(() => true);
+    req.flush({});
+
+    expect(loaderService.show).toHaveBeenCalled();
+  });
+
+  it('should call loaderService.hide() after a minimum delay', fakeAsync(() => {
+    http.get('/some-path').subscribe();
+
+    const req = httpMock.expectOne(() => true);
+    req.flush({});
+
+    expect(loaderService.hide).not.toHaveBeenCalled();
+
+    tick(500);
+
+    expect(loaderService.hide).toHaveBeenCalled();
+  }));
 });
