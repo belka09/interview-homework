@@ -9,7 +9,6 @@ exports.getAll = async (req, res, next) => {
     });
     res.status(200).json(shipments);
   } catch (error) {
-    console.error("Error in getAll:", error);
     next(error);
   }
 };
@@ -23,7 +22,6 @@ exports.getById = async (req, res, next) => {
     }
     res.status(200).json(shipment);
   } catch (error) {
-    console.error("Error in getById:", error);
     next(error);
   }
 };
@@ -63,7 +61,6 @@ exports.create = async (req, res, next) => {
     res.status(201).json(newShipment);
   } catch (error) {
     await t.rollback();
-    console.error("Error in create:", error);
     next(error);
   }
 };
@@ -79,7 +76,6 @@ exports.updateStatus = async (req, res, next) => {
     await shipment.update({ status });
     res.status(200).json(shipment);
   } catch (error) {
-    console.error("Error in updateStatus:", error);
     next(error);
   }
 };

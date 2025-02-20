@@ -7,6 +7,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ApiUrlInterceptor } from './core/interceptors/api-url.interceptor';
 import { TabsComponent } from './core/components/tabs/tabs.component';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { ToastComponent } from './core/components/toast/toast.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,6 +16,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
     AppRoutingModule,
     HttpClientModule,
     TabsComponent,
+    ToastComponent,
     OverlayModule,
   ],
   providers: [

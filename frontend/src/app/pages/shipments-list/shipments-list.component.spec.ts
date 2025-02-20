@@ -165,10 +165,6 @@ describe('ShipmentsListComponent', () => {
       afterClosed$.complete();
 
       expect(shipmentsService.updateShipmentStatus).toHaveBeenCalled();
-      expect(console.error).toHaveBeenCalledWith(
-        'Error updating shipment status',
-        jasmine.any(Error)
-      );
     });
   });
 });

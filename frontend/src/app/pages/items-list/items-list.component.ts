@@ -8,6 +8,7 @@ import { ListItemComponent } from './list-item/list-item.component';
 import { WarehouseItem } from '../../core/models/warehouseItem';
 import { AddToShipmentsModalComponent } from 'src/app/core/components/add-to-shipments-modal/add-to-shipments-modal.component';
 import { ShipmentsService } from 'src/app/core/services/shipment.service';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-items-list',
@@ -22,7 +23,8 @@ export class ItemsListComponent {
   constructor(
     private productsService: ProductsService,
     private modalService: ModalService,
-    private shipmentsService: ShipmentsService
+    private shipmentsService: ShipmentsService,
+    private toastService: ToastService
   ) {}
 
   addItemToShipment(id: number): void {
@@ -40,12 +42,14 @@ export class ItemsListComponent {
                 quantity: shipmentData.quantity,
               };
               this.shipmentsService.createShipment(newShipment).subscribe(
-                (shipment) => {
-                  console.log('Shipment created successfully:', shipment);
+                () => {
+                  this.toastService.showSuccess(
+                    'Shipment created successfully!'
+                  );
                   this.items$ = this.productsService.fetchAll();
                 },
-                (error) => {
-                  console.error('Error creating shipment:', error);
+                () => {
+                  this.toastService.showError('Error creating shipment');
                 }
               );
             }
@@ -66,10 +70,10 @@ export class ItemsListComponent {
           .subscribe(
             () => {
               this.items$ = this.productsService.fetchAll();
-              console.log('Product updated successfully');
+              this.toastService.showSuccess('Product updated successfully!');
             },
             (error) => {
-              console.error('Error updating product', error);
+              this.toastService.showError('Error updating product');
             }
           );
       }

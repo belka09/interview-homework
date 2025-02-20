@@ -1,0 +1,8 @@
+<div class="toast-container">
+  <div *ngFor="let toast of toasts" class="toast" [ngClass]="toast.type">
+    <strong *ngIf="toast.type === 'success'">Success: </strong>
+    <strong *ngIf="toast.type === 'warning'">Warning: </strong>
+    <strong *ngIf="toast.type === 'error'">Error: </strong>
+    {{ toast.text }}
+  </div>
+</div>

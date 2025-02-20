@@ -7,6 +7,7 @@ import { ShipmentsService } from 'src/app/core/services/shipment.service';
 import { ShipmentItemComponent } from './shipmen-item/shipment-item.component';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { StatusChangeModalComponent } from 'src/app/core/components/status-change-model/status-change-modal.component';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-shipments-list',
@@ -20,7 +21,8 @@ export class ShipmentsListComponent {
 
   constructor(
     private shipmentsService: ShipmentsService,
-    private modalService: ModalService
+    private modalService: ModalService,
+    private toastService: ToastService
   ) {}
 
   edit(shipment: Shipment): void {
@@ -34,11 +36,13 @@ export class ShipmentsListComponent {
           .updateShipmentStatus(updatedShipment.id, updatedShipment.status)
           .subscribe(
             () => {
-              console.log('Shipment status updated successfully');
+              this.toastService.showSuccess(
+                'Shipment status updated successfully!'
+              );
               this.items$ = this.shipmentsService.fetchAll();
             },
             (error) => {
-              console.error('Error updating shipment status', error);
+              this.toastService.showError('Error updating shipment status');
             }
           );
       }
