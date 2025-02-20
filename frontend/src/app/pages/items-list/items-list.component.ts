@@ -27,35 +27,31 @@ export class ItemsListComponent {
     private toastService: ToastService
   ) {}
 
-  addItemToShipment(id: number): void {
-    this.productsService
-      .getProductById(id)
-      .subscribe((product: WarehouseItem) => {
-        const modalRef = this.modalService.open(AddToShipmentsModalComponent, {
-          data: product,
-        });
-        modalRef.afterClosed.subscribe(
-          (shipmentData: { quantity: number; product: WarehouseItem }) => {
-            if (shipmentData) {
-              const newShipment = {
-                productId: shipmentData.product.id,
-                quantity: shipmentData.quantity,
-              };
-              this.shipmentsService.createShipment(newShipment).subscribe(
-                () => {
-                  this.toastService.showSuccess(
-                    'Shipment created successfully!'
-                  );
-                  this.items$ = this.productsService.fetchAll();
-                },
-                () => {
-                  this.toastService.showError('Error creating shipment');
-                }
-              );
+  addItemToShipment(product: WarehouseItem): void {
+    const modalRef = this.modalService.open(AddToShipmentsModalComponent, {
+      data: product,
+    });
+
+    modalRef.afterClosed.subscribe(
+      (shipmentData: { quantity: number; product: WarehouseItem }) => {
+        if (shipmentData) {
+          const newShipment = {
+            productId: shipmentData.product.id,
+            quantity: shipmentData.quantity,
+          };
+
+          this.shipmentsService.createShipment(newShipment).subscribe(
+            () => {
+              this.toastService.showSuccess('Shipment created successfully!');
+              this.items$ = this.productsService.fetchAll();
+            },
+            () => {
+              this.toastService.showError('Error creating shipment');
             }
-          }
-        );
-      });
+          );
+        }
+      }
+    );
   }
 
   edit(product: WarehouseItem): void {
@@ -72,7 +68,7 @@ export class ItemsListComponent {
               this.items$ = this.productsService.fetchAll();
               this.toastService.showSuccess('Product updated successfully!');
             },
-            (error) => {
+            () => {
               this.toastService.showError('Error updating product');
             }
           );
