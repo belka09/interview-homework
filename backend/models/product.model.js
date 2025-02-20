@@ -25,6 +25,11 @@ const Product = sequelize.define(
       allowNull: false,
       field: "unit_price",
     },
+    isDeleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+      allowNull: false,
+    },
   },
   {
     tableName: "products",

@@ -1,0 +1,27 @@
+<div class="modal-container">
+  <h2>Shipment status</h2>
+
+  <div class="shipment-info">
+    <p>
+      <strong>Created At:</strong> {{ data.createdAt | date : "mediumDate" }}
+    </p>
+    <p><strong>Product:</strong> {{ data.product.name }}</p>
+    <p><strong>Quantity:</strong> {{ data.quantity }}</p>
+  </div>
+
+  <form [formGroup]="editForm">
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select id="status" formControlName="status">
+        <option [value]="shipmentStatus.Created">Created</option>
+        <option [value]="shipmentStatus.Shipped">Shipped</option>
+        <option [value]="shipmentStatus.Delivered">Delivered</option>
+      </select>
+    </div>
+
+    <div class="modal-buttons">
+      <button type="button" (click)="cancel()">Cancel</button>
+      <button type="button" (click)="save()">Save</button>
+    </div>
+  </form>
+</div>

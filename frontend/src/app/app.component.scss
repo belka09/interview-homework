@@ -1,5 +1,6 @@
 :host {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 14px;
   color: #333;
   box-sizing: border-box;
@@ -35,7 +36,7 @@ p {
   background-color: #010833;
   color: white;
   font-weight: 600;
-  :last-child{
+  :last-child {
     margin-right: 16px;
   }
 }
@@ -49,7 +50,7 @@ p {
   margin: 0 8px;
 }
 
-.toolbar .social-logo:hover{
+.toolbar .social-logo:hover {
   opacity: 0.8;
 }
 
@@ -188,7 +189,7 @@ a:hover {
 }
 
 .terminal pre {
-  font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   color: white;
   padding: 0 1rem 1rem;
   margin: 0;
@@ -232,17 +233,17 @@ footer a {
   align-items: center;
   font-size: 12px;
   padding: 3px 10px;
-  border: 1px solid rgba(27,31,35,.2);
+  border: 1px solid rgba(27, 31, 35, 0.2);
   border-radius: 3px;
-  background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+  background-image: linear-gradient(-180deg, #fafbfc, #eff3f6 90%);
   margin-left: 4px;
   font-weight: 600;
 }
 
 .github-star-badge:hover {
-  background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
-  border-color: rgba(27,31,35,.35);
-  background-position: -.5em;
+  background-image: linear-gradient(-180deg, #f0f3f6, #e6ebf1 90%);
+  border-color: rgba(27, 31, 35, 0.35);
+  background-position: -0.5em;
 }
 
 .github-star-badge .material-icons {
@@ -261,7 +262,7 @@ svg#clouds {
 
 /* Responsive Styles */
 @media screen and (max-width: 767px) {
-  .card-container > *:not(.circle-link) ,
+  .card-container > *:not(.circle-link),
   .terminal {
     width: 100%;
   }
@@ -285,5 +286,33 @@ svg#clouds {
   svg#rocket-smoke {
     display: none;
     visibility: hidden;
+  }
+}
+
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader-spinner {
+  width: 50px;
+  height: 50px;
+  border: 8px solid #eaeaea;
+  border-top: 8px solid #010833;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
