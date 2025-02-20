@@ -1,3 +1,5 @@
+@import "src/styles/index";
+
 .toast-container {
   position: fixed;
   bottom: 20px;
@@ -11,7 +13,7 @@
 .toast {
   padding: 12px 16px;
   border-radius: 4px;
-  color: #fff;
+  color: $white;
   font-weight: 500;
   min-width: 200px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
@@ -19,16 +21,16 @@
 }
 
 .toast.success {
-  background-color: #28a745 !important;
+  background-color: $green !important;
 }
 
 .toast.warning {
-  background-color: #ffc107 !important;
+  background-color: $warning !important;
   color: #333;
 }
 
 .toast.error {
-  background-color: #dc3545 !important;
+  background-color: $error !important;
 }
 
 @keyframes fadeIn {

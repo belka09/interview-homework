@@ -14,7 +14,6 @@ import { Shipment, ShipmentStatus } from '../../models/shipmentItem';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './status-change-modal.component.html',
-  styleUrls: ['./status-change-modal.component.scss'],
 })
 export class StatusChangeModalComponent implements OnInit {
   @HostBinding('class.modal') classModal = true;

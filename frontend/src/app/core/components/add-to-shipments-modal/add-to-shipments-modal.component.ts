@@ -14,7 +14,6 @@ import { WarehouseItem } from '../../models/warehouseItem';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './add-to-shipments-modal.component.html',
-  styleUrls: ['./add-to-shipments-modal.component.scss'],
 })
 export class AddToShipmentsModalComponent implements OnInit {
   @HostBinding('class.modal') classModal = true;

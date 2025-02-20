@@ -1,10 +1,12 @@
+@import "src/styles/index";
+
 :host {
   display: block;
   width: 100%;
 }
 
 .tabs {
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid $white;
 
   &--list {
     display: flex;
@@ -15,12 +17,14 @@
   &--btn {
     display: block;
     padding: 10px;
+    color: $primary-color;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
 
     &:hover,
     &.active {
-      background: #eee;
+      background-color: $light-gray;
+      color: $black;
     }
   }
 }

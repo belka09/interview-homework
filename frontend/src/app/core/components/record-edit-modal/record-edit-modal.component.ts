@@ -14,7 +14,6 @@ import { WarehouseItem } from '../../models/warehouseItem';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './record-edit-modal.component.html',
-  styleUrls: ['./record-edit-modal.component.scss'],
 })
 export class RecordEditModalComponent implements OnInit {
   @HostBinding('class.modal') classModal = true;

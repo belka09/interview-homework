@@ -1,3 +1,5 @@
+@import "src/styles/index";
+
 :host {
   .list-item {
     display: flex;
@@ -38,19 +40,19 @@
       display: inline-block;
       padding: 4px 8px;
       border-radius: 4px;
-      color: #fff;
+      color: $white;
       text-transform: capitalize;
       font-weight: bold;
       text-align: center;
 
       &.created {
-        background-color: #ff4d4f;
+        background-color: $error;
       }
       &.shipped {
-        background-color: #faad14;
+        background-color: $warning;
       }
       &.delivered {
-        background-color: #52c41a;
+        background-color: $green;
       }
     }
   }
